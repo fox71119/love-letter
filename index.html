@@ -1,105 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-<style>
-/*body {
-  background: #fce4ec;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: Arial;
-}
+  <meta charset="UTF-8">
+  <title>Happy Birthday ❤️</title>
 
-.envelope {
-  width: 250px;
-  height: 150px;
-  background: #ff8fa3;
-  cursor: pointer;
-  position: relative;
-}
+  <style>
+    body {
+      background: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial;
+    }
 
-.letter {
-  background: white;
-  padding: 15px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: none;
-}
+    .envelope {
+      width: 250px;
+      height: 150px;
+      background: #ff8fa3;
+      cursor: pointer;
+      position: relative;
+    }
 
-.envelope.open .letter {
-  display: block;
-}
+    .letter {
+      background: white;
+      padding: 15px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: none;
+    }
 
-.hidden {
-  display: none;
-}
+    .envelope.open .letter {
+      display: block;
+    }
 
-.cake {
-  text-align: center;
-}
+    .hidden {
+      display: none;
+    }
 
-.flame {
-  width: 20px;
-  height: 40px;
-  background: orange;
-  margin: auto;
-  border-radius: 50%;
-}
-*/
-</style>
+    .cake {
+      text-align: center;
+    }
+
+    .flame {
+      width: 20px;
+      height: 40px;
+      background: orange;
+      margin: auto;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 
 <body>
-<!--<div class="envelope" onclick="openEnvelope()">
-  <div class="letter">
-    <h2>❤️ حبيبتي ❤️</h2>
-    <p>كل سنة وإنتي طيبة وبخير دايمًا</p>
-    <img src="https://i.imgur.com/3ZQ3ZQZ.jpg" />
-    <button onclick="showCake(event)">دوسي هنا 🎂</button>
+
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="letter">
+      <h2>❤️ حبيبتي ❤️</h2>
+      <p>كل سنة وإنتي طيبة وبخير دايمًا</p>
+      <img src="https://i.imgur.com/3ZQ3ZQZ.jpg" />
+      <button onclick="showCake(event)">دوسي هنا 🎂</button>
+    </div>
   </div>
-</div>
 
-<div class="cake hidden">
-  <h1>🎂 عيد ميلاد سعيد 🎂</h1>
-  <p>انفخي في الشمعة 🔥</p>
-  <div class="flame"></div>
-</div>
--->
+  <div class="cake hidden">
+    <h1>🎂 عيد ميلاد سعيد 🎂</h1>
+    <p>انفخي في الشمعة 🔥</p>
+    <div class="flame"></div>
+  </div>
 
-<script>
-// function openEnvelope() {
-  document.querySelector('.envelope').classList.add('open');
-}
-
-function showCake(e) {
-  e.stopPropagation();
-  document.querySelector('.envelope').style.display = 'none';
-  document.querySelector('.cake').classList.remove('hidden');
-}
-navigator.mediaDevices.getUserMedia({ audio: true })
-.then(stream => {
-  const audioContext = new AudioContext();
-  const mic = audioContext.createMediaStreamSource(stream);
-  const analyser = audioContext.createAnalyser();
-  mic.connect(analyser);
-
-  const data = new Uint8Array(analyser.frequencyBinCount);
-
-  function listen() {
-    analyser.getByteFrequencyData(data);
-    let volume = data.reduce((a,b) => a + b) / data.length;
-
-    if (volume > 50) {
-      document.querySelector('.flame').style.display = 'none';
+  <script>
+    function openEnvelope() {
+      document.querySelector('.envelope').classList.add('open');
     }
-    requestAnimationFrame(listen);
-  }
-  listen();
-});
 
-</script>
+    function showCake(e) {
+      e.stopPropagation();
+      document.querySelector('.envelope').style.display = 'none';
+      document.querySelector('.cake').classList.remove('hidden');
+    }
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      const audioContext = new AudioContext();
+      const mic = audioContext.createMediaStreamSource(stream);
+      const analyser = audioContext.createAnalyser();
+      mic.connect(analyser);
+
+      const data = new Uint8Array(analyser.frequencyBinCount);
+
+      function listen() {
+        analyser.getByteFrequencyData(data);
+        let volume = data.reduce((a,b) => a + b) / data.length;
+
+        if (volume > 50) {
+          document.querySelector('.flame').style.display = 'none';
+        }
+        requestAnimationFrame(listen);
+      }
+
+      listen();
+    });
+  </script>
+
 </body>
 </html>
